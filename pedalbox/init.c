@@ -73,9 +73,11 @@ void init_pins(){
     //End of conversion pins set 
     gpio_init(EOC_ADC1);
     gpio_set_dir(EOC_ADC1, GPIO_IN);
+    gpio_set_irq_enabled(EOC_ADC1, GPIO_IRQ_EDGE_RISE, true);
 
     gpio_init(EOC_ADC2);
     gpio_set_dir(EOC_ADC2, GPIO_IN);
+    gpio_set_irq_enabled(EOC_ADC2, GPIO_IRQ_EDGE_RISE, true);
 
     //The ADC input pins are setup here
     gpio_init(INPUT1);
@@ -104,9 +106,11 @@ void init_pins(){
 
     gpio_init(EN1);
     gpio_set_dir(EN1, GPIO_IN);
+    gpio_put(EN1, 0);
 
     gpio_init(EN2);
     gpio_set_dir(EN2, GPIO_IN);
+    gpio_put(EN2, 0);
 
     //Can transcierver and reciever pin
     gpio_init(TXD);
