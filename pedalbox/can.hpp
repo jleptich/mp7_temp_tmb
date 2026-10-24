@@ -37,6 +37,7 @@ bool bready_to_drive(void);
 void can_init(void);
 bool can_tx_adc_taps(uint16_t taps);
 void ready_timer_cb();
+uint32_t header2id(sCAN_Header header);
 
 void rtd_enable_heartbeat(void);
 void rtd_disable_heartbeat(void);

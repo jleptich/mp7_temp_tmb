@@ -1,5 +1,6 @@
 #include "pico/stdlib.h"
 #include "hardware/irq.h"
+#include "hardware/pwm.h"
 
 //creating definations for all the pins that need to be set 
 #define PWM 7       //used for the clock signal to both ADCS
@@ -31,12 +32,9 @@
 
 
 
-
 void init_pins(){
     //setting up the PWM pin
-    gpio_init(PWM);
-    GPIO_SET_FUNCTION(PWM, GPIO_FUNC_PWM);
-    gpio_set_dir(PWM, GPIO_OUT);
+    gpio_set_function(PWM, GPIO_FUNC_PWM);
     uint slice = pwm_gpio_to_slice_num(PWM);        // = 3
     uint chan  = pwm_gpio_to_channel(PWM);          // = PWM_CHAN_B
 

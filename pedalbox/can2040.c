@@ -6,7 +6,7 @@
 
 #include <stdint.h> // uint32_t
 #include <string.h> // memset
-#include "cmsis_gcc.h" // __DMB
+//#include "cmsis_gcc.h" // __DMB
 #include "can2040.h"
 #include "hardware/regs/dreq.h" // DREQ_PIO0_RX1
 #include "hardware/structs/dma.h" // dma_hw
@@ -764,7 +764,6 @@ tx_schedule_transmit(struct can2040 *cd)
         // No new messages to transmit
         cd->tx_state = TS_IDLE;
         pio_signal_clear_txpending(cd);
-        __DMB();
         if (likely(readl(&cd->tx_push_pos) == tx_pull_pos))
             return SI_TXPENDING;
         // Raced with can2040_transmit() - msg is now available for transmit
@@ -1409,7 +1408,6 @@ can2040_transmit(struct can2040 *cd, struct can2040_msg *msg)
     writel(&cd->tx_push_pos, tx_push_pos + 1);
 
     // Wakeup if in TS_IDLE state
-    __DMB();
     pio_signal_set_txpending(cd);
 
     return 0;

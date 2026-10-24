@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/dma.h"
+
+extern "C" {
+#include "can2040.h"
+}
 #include "can.hpp"
 #include "init.h"
 #include "hardware/watchdog.h"
@@ -11,7 +15,7 @@
 // DEFAULT
 
 
-temp_Lookup_Table vt_Lookup[33] = {
+VoltageTemperature vt_Lookup[33] = {
 		{2.44, -40},
 		{2.42, -35},
 		{2.40, -30},
@@ -47,6 +51,8 @@ temp_Lookup_Table vt_Lookup[33] = {
 		{1.30, 120}
 };
 
+static struct can2040 cbus;
+static struct can2040_msg msg;
 void can_call(float average_temperature, float max_temperature, float min_temperature) {
     // Transmit a CAN message with the current temperature
     sCAN_Header header = {
