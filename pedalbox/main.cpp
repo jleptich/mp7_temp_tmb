@@ -14,7 +14,6 @@ extern "C" {
 
 // DEFAULT
 
-
 VoltageTemperature vt_Lookup[33] = {
 		{2.44, -40},
 		{2.42, -35},
